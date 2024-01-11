@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.w3.org/1999/xhtml"
+	  layout:decorate="~{layout}">
+<head>
+	<meta charset="UTF-8" />
+</head>
+<body>
+
+<section class="layout-content" layout:fragment="corpo">
+	<main role="main">
+
+		<div class="album py-5 bg-light">
+			<div class="text-center ">
+				<h1 class="h3 mt-4 font-weight-normal">Sorteio</h1>
+			</div>
+			<div class="container">
+
+				<div th:replace="~{fragments/alert :: alerta-sucesso}"></div>
+
+				<form class="form-signin was-validated" method="POST" th:action="@{/sorteio/sortear}">
+
+					<div class="form-group row">
+						<div class="col-sm-5">
+							<button type="submit" class="btn btn-lg btn-info btn-block">Realizar Sorteio</button>
+						</div>
+					</div>
+
+					<hr/>
+					<p class="lead text-muted">Participante Sorteado</p>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="table-responsive">
+								<table class="table table-striped table-hover table-sm">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Nome</th>
+										<th>Data Sorteio</th>
+										<th>Número Seguro Social</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="d : ${participanteSorteado}">
+										<td th:text="${d.id}"></td>
+										<td th:text="${d.nome}"></td>
+										<td th:text="${#temporals.format(d.dataSorteio, 'dd-MM-yyyy HH:mm')}"></td>
+										<td th:text="${d.numeroSeguro}"></td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+</section>
+<script	th:src="@{/js/usuario.js(v=${version})}" th:fragment="js"></script>
+<script th:inline="javascript" th:fragment="inlinescript"></script>
+</body>
+</html>

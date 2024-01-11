@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="UTF-8" />
+</head>
+<body>
+		<section class="layout-content" layout:fragment="corpo">
+
+			<main role="main">
+				<hr>
+				<div class="album py-5 bg-light">
+					<div class="container">
+
+						<div class="d-flex justify-content-center">
+							<div class="col-md-8">
+								<div th:replace="~{fragments/alert}"></div>
+								<form class="form-signin was-validated" method="POST"
+									  th:action="${participante.id == null} ? @{/participantes/salvar} : @{/participantes/editar}"
+									  th:object="${participante}">
+
+									<div th:replace="~{fragments/validacao  :: validacao}"></div>
+
+									<div class="text-center mb-4">
+										<h1 class="h3 mb-3 font-weight-normal">Cadastrar participante</h1>
+									</div>
+
+									<div th:if="${#fields.hasAnyErrors()}">
+										<div class="alert alert-danger alert-dismissible fade show" role="alert">
+											<div th:each="error : ${#fields.detailedErrors()}">
+												<i class="oi oi-warning"></i>
+												<span th:text="${error.message}"></span>
+											</div>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									</div>
+
+									<div class="form-label-group">
+										<label for="inputNome">Nome</label>
+										<input type="text" id="inputNome" class="form-control" placeholder="nome"
+											   th:field="*{nome}" required autofocus />
+										<div class="invalid-feedback">
+											Campo obrigatório.
+										</div>
+									</div>
+
+									<div class="form-label-group">
+										<label for="inputEmail">Email</label>
+										<input type="text" id="inputEmail" class="form-control" placeholder="e-mail"
+											   th:field="*{email}" required autofocus />
+
+										<div class="invalid-feedback">
+											Necessário um e-mail válido.
+										</div>
+									</div>
+
+									<div class="form-label-group">
+										<label for="inputSeguro">Seguro social</label>
+										<input type="text" id="inputSeguro" class="form-control" placeholder="seguro"
+											   th:field="*{numeroSeguroSocial}" required autofocus />
+
+										<div class="invalid-feedback">
+											Campo obrigatório.
+										</div>
+									</div>
+									<input type="hidden" id="id" th:field="*{id}"/>
+									<button class="btn btn-lg btn-info btn-block" type="submit">Salvar</button>
+									<hr>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</section>
+	<script	th:src="~{}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript"></script>
+</body>
+</html>
