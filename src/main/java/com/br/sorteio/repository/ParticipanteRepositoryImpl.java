@@ -16,7 +16,7 @@ public class ParticipanteRepositoryImpl {
 
     public PaginacaoUtil<Participante> buscaPaginada(int pagina, String direcao) {
         int tamanho = 5;
-        int inicio = (pagina - 1) * tamanho; // 0*5=0 1*5=5 2*5=10
+        int inicio = (pagina - 1) * tamanho;
         List<Participante> cargos = entityManager
                 .createQuery("select p from Participante p order by p.nome " + direcao, Participante.class)
                 .setFirstResult(inicio)

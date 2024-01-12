@@ -1,5 +1,7 @@
 package com.br.sorteio.service;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import com.br.sorteio.domain.Participante;
 import com.br.sorteio.domain.Sorteio;
 import com.br.sorteio.dto.ParticipanteSorteadoDTO;
 import com.br.sorteio.repository.SorteioRepository;
@@ -29,14 +31,8 @@ public class SorteioService {
     public ParticipanteSorteadoDTO realizarSorteio(){
         List<Long> idsCadastrados = participanteService.buscarTodosIds();
 
-        var numeroSorteado = sortearNumero(idsCadastrados.stream().mapToLong(n -> n).max().getAsLong());
-
-        Long idSorteado = getParticipanteSorteado(idsCadastrados, numeroSorteado);
-
-        while (ObjectUtils.isEmpty(idSorteado)){
-            numeroSorteado = sortearNumero(idsCadastrados.stream().mapToLong(n -> n).max().getAsLong());
-            idSorteado = getParticipanteSorteado(idsCadastrados, numeroSorteado);
-        }
+        var numeroSorteado = sortearNumero(idsCadastrados.size());
+        Long idSorteado = getParticipanteSorteado((long) numeroSorteado);
 
         var participanteSorteado = participanteService.findById(idSorteado);
 
@@ -51,12 +47,17 @@ public class SorteioService {
 
     }
 
-    private Long sortearNumero(Long max) {
-        Random random = new Random(max++);
-        return random.nextLong();
+    private int sortearNumero(int max) {
+        Random random = new Random();
+        return random.nextInt(max)+1;
     }
 
     private Long getParticipanteSorteado(List<Long> participantesCadastrados, Long numeroSorteado) {
         return participantesCadastrados.stream().filter(numeroSorteado::equals).findAny().orElse(null);
+    }
+
+    private Long getParticipanteSorteado(Long numeroSorteado) {
+        Participante p =  participanteService.findById(numeroSorteado);
+        return p.getId();
     }
 }

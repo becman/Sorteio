@@ -5,8 +5,8 @@
 </head>
 <body>
 	<header th:fragment="cabecalho">
-		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-			<a class="navbar-brand" th:href="@{/}">Sorteio</a>
+		<nav class="navbar navbar-expand-md navbar-white fixed-top bg-white">
+<!--			<a class="navbar-brand" th:href="@{/}">Sorteio</a>-->
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarCollapse" aria-controls="navbarCollapse"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,7 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item dropdown" sec:authorize="isAuthenticated()"><a
-						class="btn btn-dark dropdown-toggle" href="#" id="dropdown01"
+						class="btn btn-white dropdown-toggle" href="#" id="dropdown01"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Participantes</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">
 							<a class="dropdown-item" th:href="@{/participantes/cadastrar}">Cadastro</a>
@@ -24,7 +24,7 @@
 						</div>
 					</li>
 					<li class="nav-item dropdown" sec:authorize="isAuthenticated()"><a
-						class="btn btn-dark dropdown-toggle" href="#" id="dropdown02"
+						class="btn btn-white dropdown-toggle" href="#" id="dropdown02"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sorteio</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown02">
 							<a class="dropdown-item" th:href="@{/sorteio/sorteio}">Realizar Sorteio</a>
@@ -47,7 +47,7 @@
 				<form th:action="@{/logout}" sec:authorize="isAuthenticated()"
 					  method="post"  class="form-inline mt-2 mt-md-0">
 					<div class="btn-group mb-2 mr-sm-2">
-						<button type="button" class="btn btn-light">
+						<button type="button" class="btn bg-white">
 							<i class="fas fa-user"></i> <span class=""
 									sec:authentication="name">Bob</span>
 						</button>
